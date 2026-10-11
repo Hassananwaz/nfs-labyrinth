@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>NFS: Nightfall - The Labyrinth</title>
+    <!-- Link to external CSS -->
+    <link rel="stylesheet" href="styles.css">
+    <!-- Load Three.js first -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+</head>
+<body>
+    <!-- Intro -->
+    <div id="intro-screen" class="screen-overlay">
+        <div class="box-panel">
+            <h1>NFS: LABYRINTH</h1>
+            <p style="color: #bbb;">Dynamic Levels. High-Speed Drifts. Concrete Physics.</p>
+            <p style="text-align: left; margin: 20px 40px; line-height: 1.6;">
+                <b>1.</b> Escape the maze (reach the <span style="color:#0f0">Green Zone</span>).<br>
+                <b>2.</b> Collectibles: <span style="color:#0ff">Cyan = Nitro Boost</span> | <span style="color:#ff0">Yellow = Time Freeze</span>.<br>
+                <b>3.</b> <span style="color:#90f">Purple Portals</span> warp you randomly across the map.<br>
+                <b>4.</b> The Maze shifts and expands every 3 minutes!<br>
+            </p>
+            <button onclick="enterGarage()">Enter Garage</button>
+        </div>
+    </div>
+
+    <!-- Garage -->
+    <div id="garage-screen" class="screen-overlay">
+        <div class="garage-panel">
+            <h2 style="font-family: 'Orbitron'; color: #fff; margin:0 0 10px 0; text-align:center;">CUSTOMIZE</h2>
+            <div class="slider-group"><label>Stance</label><input type="range" id="mod-height" min="0.2" max="0.8" step="0.05" value="0.35"></div>
+            <div class="slider-group"><label>Rims</label><input type="range" id="mod-wheel" min="0.4" max="0.8" step="0.05" value="0.65"></div>
+            <div class="slider-group"><label>Paint</label><input type="color" id="mod-color" value="#00ffff"></div>
+            <button onclick="deployToIsland()" style="width: 100%;">START ENGINE</button>
+        </div>
+        <div id="garage-3d" style="width: 60%; height: 100%;"></div>
+    </div>
+
+    <!-- Level Complete -->
+    <div id="transition-screen" class="screen-overlay">
+        <div class="box-panel">
+            <h1>LEVEL CLEARED</h1>
+            <p id="level-stats" style="font-size: 1.5rem; color:#0ff;">Entering deeper sector...</p>
+            <p style="color: #f0f;">The maze expands. Complexity increased.</p>
+            <button onclick="startNextLevel()">PROCEED</button>
+        </div>
+    </div>
+
+    <!-- HUD -->
+    <div id="ui-layer">
+        <div id="top-ui">
+            <div class="minimap-container">
+                <canvas id="minimap" width="140" height="140"></canvas>
+                <div class="map-legend">
+                    <div class="legend-item"><span style="background:#f00;"></span>You</div>
+                    <div class="legend-item"><span style="background:#0f0;"></span>Exit</div>
+                    <div class="legend-item"><span style="background:#90f;"></span>Portal</div>
+                    <div class="legend-item"><span style="background:#0ff;"></span>Item</div>
+                </div>
+            </div>
+            <div class="status-container">
+                <div class="level-ui" id="level-ui">SECTOR: 1</div>
+                <div id="timer-ui">SHIFT: 3:00</div>
+            </div>
+        </div>
+        
+        <div id="powerup-msg">NITRO BOOST!</div>
+        
+        <div id="controls-help">
+            <span class="highlight">[W / UP]</span> Gas<br>
+            <span class="highlight">[S / DOWN]</span> Brake/Rev<br>
+            <span class="highlight">[A / D]</span> Steer<br>
+            <span class="highlight">[SPACE]</span> Handbrake<br>
+            <span class="highlight">[C]</span> Camera
+        </div>
+        
+        <div class="speedo-container">
+            <div class="speed-val" id="speed-val">0</div>
+            <div class="speed-unit">KM/H</div>
+            <div class="rpm-bar"><div class="rpm-fill" id="rpm-fill"></div></div>
+        </div>
+    </div>
+
+    <!-- Link to external JS -->
+    <script src="script.js"></script>
+</body>
+</html>
